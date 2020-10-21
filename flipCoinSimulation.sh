@@ -1,4 +1,6 @@
 #!/bin/bash -x
+heads=0
+tails=0
 flipCoin(){
         flipResult=$((RANDOM%2))
         case $flipResult in
@@ -7,4 +9,16 @@ flipCoin(){
         esac
         echo $flipResult
 }
-flipCoin 
+for((i=0;i<10;i++))
+do
+        flipCoin
+        if [ $flipResult == "Heads" ]
+        then
+                ((heads++))
+        else
+                ((tails++))
+	fi
+
+done
+echo "Tails - "$tails
+echo "Head - "$heads
