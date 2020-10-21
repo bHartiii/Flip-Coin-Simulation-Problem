@@ -9,7 +9,7 @@ flipCoin(){
         esac
         echo $flipResult
 }
-for((i=0;i<10;i++))
+for((i=0;$heads!=21 && $tails!=21;i++))
 do
         flipCoin
         if [ $flipResult == "Heads" ]
@@ -22,3 +22,13 @@ do
 done
 echo "Tails - "$tails
 echo "Head - "$heads
+if [[ $heads -eq 21 && $tails -eq 21 ]]
+then
+        echo "It's a tie."
+
+elif [ $heads -eq 21 ]
+then
+        echo "Heads wins by " $(($heads-$tails))
+else
+	echo "Tails wins by " $(($tails-$heads))
+fi
