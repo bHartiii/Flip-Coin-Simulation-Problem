@@ -21,6 +21,13 @@ do
 	res2=$(flipCoin) 
         FlipCoinCombination[$i]=`echo $res1$res2`
 done
+for((i=21;i<=30;i++))
+do
+        res1=$(flipCoin)
+        res2=$(flipCoin)
+	res3=$(flipCoin)
+        FlipCoinCombination[$i]=`echo $res1$res2$res3`
+done
 
 echo ${FlipCoinCombination[@]}
 for((i=1;i<=10;i++))
@@ -47,9 +54,32 @@ do
 		((tailsD++))
         fi
 done
+for((i=21;i<=30;i++))
+do
+        varx=${FlipCoinCombination[$i]}
+        if [ $varx == "HHH" ]
+        then
+                headsT=$((headsD+3))
+        elif [ $varx == "TTT" ]
+        then
+                tailsT=$((tailsD+3 ))
+        elif [[ $varx == "HHT"|| $varx == "HTH" || $varx == "THH" ]]
+        then
+		headsT=$((headsD+2))
+		tailsT=$((tailsD+1))
+	elif [[ $varx == "TTH"|| $varx == "THT" ||$varx == "HTT" ]]
+	then
+		headsT=$((headsD+1))
+                tailsT=$((tailsD+2))
+        fi
+done
+
 echo "Percentage of singlets : "
 echo "Heads - "$((heads*100/10))"%"
 echo "Tails - "$((tails*100/10))"%"
 echo "Percentage of doublets : "
 echo "Heads - "$((headsD*100/10))"%"
 echo "Tails - "$((tailsD*100/10))"%"
+echo "Percentage of triplets : "
+echo "Heads - "$((headsT*100/10))"%"
+echo "Tails - "$((tailsT*100/10))"%"
