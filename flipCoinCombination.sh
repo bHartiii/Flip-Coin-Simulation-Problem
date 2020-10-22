@@ -73,7 +73,31 @@ do
                 tailsT=$((tailsD+2))
         fi
 done
+for((i=1;i<=30;i++))
+do
+	if [ $i -le 10 ]
+	then
+		singlet=${FlipCoinCombination[$i]}
+		if [ $singlet == "H" ]
+		then
+			winArray[((j++))]=$singlet
+		fi
+	elif [[ $i -ge 11 && $i -le 20 ]]
+	then
+		doublet=${FlipCoinCombination[$i]}
+		if [ $doublet == "HH" ]
+		then
+			winArray[((j++))]=$doublet
+		fi
+	else
+		triplet=${FlipCoinCombination[$i]}
+                if [[ $triplet == "HTH" || $triplet == "HHT"|| $triplet == "HHH" || $triplet == "THH"  ]]
+                then
+                        winArray[((j++))]=$triplet
+                fi
 
+	fi
+done
 echo "Percentage of singlets : "
 echo "Heads - "$((heads*100/10))"%"
 echo "Tails - "$((tails*100/10))"%"
@@ -83,3 +107,4 @@ echo "Tails - "$((tailsD*100/10))"%"
 echo "Percentage of triplets : "
 echo "Heads - "$((headsT*100/10))"%"
 echo "Tails - "$((tailsT*100/10))"%"
+echo "Wins - "${winArray[@]}
